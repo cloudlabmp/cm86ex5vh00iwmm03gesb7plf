@@ -35,16 +35,22 @@ resource "github_repository" "backend_repo" {
   visibility = "private"  # Or "public" depending on your requirements
 }
 
+# Get the default branch for the backend repository
+data "github_repository" "backend_info" {
+  name       = github_repository.backend_repo.name
+  depends_on = [github_repository.backend_repo]
+}
+
 # Create development branch for backend repository
 resource "github_branch" "backend_dev_branch" {
   repository = github_repository.backend_repo.name
   branch     = "development"
   
-  # Use the default branch as source without referencing deprecated attribute
-  source_branch = "main"  # Assuming "main" is the default branch name
+  # Use the data source to get the default branch dynamically
+  source_branch = data.github_repository.backend_info.default_branch
   
   # Explicitly depend on the repository
-  depends_on = [github_repository.backend_repo]
+  depends_on = [github_repository.backend_repo, data.github_repository.backend_info]
 }
 
 # Create frontend repository with explicit dependency on backend
@@ -60,14 +66,20 @@ resource "github_repository" "frontend_repo" {
   depends_on = [github_repository.backend_repo]
 }
 
+# Get the default branch for the frontend repository
+data "github_repository" "frontend_info" {
+  name       = github_repository.frontend_repo.name
+  depends_on = [github_repository.frontend_repo]
+}
+
 # Create development branch for frontend repository
 resource "github_branch" "frontend_dev_branch" {
   repository = github_repository.frontend_repo.name
   branch     = "development"
   
-  # Use the default branch as source without referencing deprecated attribute
-  source_branch = "main"  # Assuming "main" is the default branch name
+  # Use the data source to get the default branch dynamically
+  source_branch = data.github_repository.frontend_info.default_branch
   
   # Explicitly depend on the repository
-  depends_on = [github_repository.frontend_repo]
+  depends_on = [github_repository.frontend_repo, data.github_repository.frontend_info]
 }
