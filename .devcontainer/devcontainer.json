@@ -19,7 +19,9 @@
   },
   "postCreateCommand": {
     "mtccli": "curl -s https://app.morethancertified.com/install.sh | sh",
-    "deletecmd": "echo \"alias mtc-delete='gh cs delete -c ${CODESPACE_NAME}'\" >> ~/.bashrc"
+    "deletecmd": "echo \"alias mtc-delete='gh cs delete -c ${CODESPACE_NAME}'\" >> ~/.bashrc",
+    "cfnalias": "echo \"alias mtc-init='./mtc-init.sh'\" >> ~/.bashrc",
+    "mtcchmod": "chmod +x mtc-init.sh"
   },
   "secrets": {
     "AWS_ACCESS_KEY_ID": {
@@ -27,6 +29,9 @@
     },
     "AWS_SECRET_ACCESS_KEY": {
       "description": "AWS Secret Access Key if the lab requires it."
+    },
+    "AWS_DEFAULT_REGION": {
+      "description": "AWS Region if it is an AWS lab. If unsure, set to us-east-1."
     }
   }
 }
