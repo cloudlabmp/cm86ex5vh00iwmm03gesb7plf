@@ -20,8 +20,8 @@
   "postCreateCommand": {
     "mtccli": "curl -s https://app.morethancertified.com/install.sh | sh",
     "deletecmd": "echo \"alias mtc-delete='gh cs delete -c ${CODESPACE_NAME}'\" >> ~/.bashrc",
-    "cfnalias": "echo \"alias mtc-init='./mtc-init.sh'\" >> ~/.bashrc",
-    "mtcchmod": "chmod +x mtc-init.sh"
+    "cfnalias": "echo \"alias mtc-init='./bootstrap/mtc-init.sh'\" >> ~/.bashrc",
+    "mtcchmod": "chmod +x ./bootstrap/mtc-init.sh"
   },
   "secrets": {
     "AWS_ACCESS_KEY_ID": {
