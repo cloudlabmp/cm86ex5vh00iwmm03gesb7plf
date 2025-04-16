@@ -1,31 +1,31 @@
 **Ticket Type:** Task  
-**Title:** Create two repositories and a new branch  
-**Project:** Version Control System Deployment  
+**Title:** Create two VPCs and development subnets  
+**Project:** Cloud Network Infrastructure Deployment  
 **Assignee:** You  
 **Reporter:** Derek Morgan  
 **Priority:** High  
-**Labels:** Terraform, GitHub  
-**Epic Link:** GitHub Expansion  
+**Labels:** Terraform, AWS  
+**Epic Link:** AWS VPC Expansion  
 **Sprint:** Sprint 01/Dependencies
 
 **Description:**
 
-The development team needs repositories deployed for their latest application. They've chosen Terraform in order to scale their application and environments as needed with a single-source-of-truth. They need a backend repository and a frontend repository. Each repository also needs a branch called “development.” Ensure references to other resources are not hardcoded.
+The cloud infrastructure team needs to set up networking for a new microservices application. They're using Terraform to maintain infrastructure as code and ensure consistent deployments across environments. Your task is to create two AWS VPCs - one for backend services and one for frontend services. Each VPC should have a subnet named "development" for initial testing.
 
-Due to some automations that are listening for these repositories to be created, the backend repository needs to be completely created before the frontend repository creation should begin. You will need to create an explicit dependency to ensure this happens properly. 
+The backend services must be fully operational before frontend deployment begins, as the frontend depends on backend APIs. To enforce this order, you'll need to implement an explicit dependency between the VPCs. Make sure to use resource references rather than hardcoded values to maintain flexibility as the infrastructure evolves. 
 
 **Implementation Notes:**
 
 > **Note:** If the `terraform validate` command fails, all tasks in the lab will fail!
 
-> **Note:** If you need to authenticate to GitHub to deploy the repository, you can run this command from your Codespace:
+> **Note:** This lab uses AWS provider with default credentials. If you need to configure AWS credentials, you can use the AWS CLI:
 
 <!-- font-size: 16px -->
 ```bash
-unset GITHUB_TOKEN && gh auth login -h github.com -p https -s delete_repo,codespace -w
+aws configure
 ```
 
-(If the link does not open, copy and paste it into another tab.)
+(If you're using a classroom environment, credentials may already be configured for you.)
 
-- <a href="https://registry.terraform.io/providers/integrations/github/latest/docs" target="_blank">GitHub Provider Documentation</a>  
+- <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc" target="_blank">AWS VPC Resource Documentation</a>  
 - <a href="https://developer.hashicorp.com/terraform/tutorials/configuration-language/dependencies" target="_blank">Resource Dependencies Tutorial</a>
